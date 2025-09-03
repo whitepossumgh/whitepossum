@@ -1,13 +1,15 @@
 [project]
 name = "whitepossum"
 version = "0.1.0"
-description = "Add your description here"
+description = "This package implements differential functions"
 readme = "README.md"
 authors = [
     { name = "whitepossum", email = "whitepossum@andrewnw.com" }
 ]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "twine>=6.1.0",
+]
 
 [tool.maturin]
 module-name = "whitepossum._core"
