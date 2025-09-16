@@ -40,7 +40,7 @@ def rref(m: torch.Tensor):
         for row in range(pivotRow, nRows):
           if m[row, col] != 0:
             # now we reduce the rows
-            rowswap(m, pivotRow, m[row][col])
+            rowswap(m, pivotRow, row)
             # now make pivot one
             pivot_element = m[pivotRow, col]
             # divide by the floor of the pivot element
