@@ -2,11 +2,11 @@
 Version=$1
 Message="$2"
 
-if [ "$Version" -eq '' ]; then
+if [ "$Version" == '' ]; then
     echo "Please provide version number"
     exit 1
 fi
-if [ "$Message" -eq '' ]; then
+if [ "$Message" == '' ]; then
     echo "Please commit version number"
     exit 1
 fi
