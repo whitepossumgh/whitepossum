@@ -1,6 +1,6 @@
 [project]
 name = "whitepossum"
-version = "0.5.2"
+version = "0.5.3"
 description = "This package implements differential functions"
 readme = "README.md"
 authors = [

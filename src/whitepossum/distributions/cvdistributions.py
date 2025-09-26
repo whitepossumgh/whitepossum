@@ -10,25 +10,20 @@ def uniform(a: float = 0.0, b: float = 1.0) -> float:
 
 def exponentialdist(l):
     """
-    This uses uniform() to generate l random sample for the exponential distribution.
+    This uses uniform() to generate a sample for the exponential distribution.
 
     x = - ( ln(y) / alpha) 
 
-    **Parameters**
-
+    Arguments:
     l
       Lamda value to pass to the function.
     """
 
-    dist = []
-    # start from 1, add one to l because lamda > 0
-    for i in range(1, l+1):
-      # get one y-value
-      y = uniform()
-      x = -( np.log(y) / i)
-      dist.append(x)
 
-    return dist
+    # get one y-value
+    y = uniform()
+    x = -( np.log(y) / l)
+    return x
 
 def poissondist(l):
     """
