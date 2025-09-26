@@ -1,5 +1,6 @@
 import secrets
 import numpy as np
+import math
 def uniform(a: float = 0.0, b: float = 1.0) -> float:
     """Cryptographically secure uniform sample."""
     # 53 random bits gives 53-bit precision double
@@ -29,26 +30,26 @@ def exponentialdist(l):
 
 def poissondist(l):
     """
-    This uses inverse transform sampling to compute a sample of the posson distibution. 
-
-    **Parameters**
-
-    l
-      Lamda value to pass to the function.
+    Generate Poisson distributed random sample using inverse transform sampling.
     """
+    if l <= 0:
+        raise ValueError("Lambda must be greater than 0")
 
-    dist = []
+    u = uniform()
+    p = math.exp(-l)   # P(X=0)
+    F = p              # cumulative probability
+    k = 0
+
+    while u > F:
+        k += 1
+        p *= l / k     # recursive relation for P(X=k)
+        F += p
+
+    return k
 
 
-
-    
-
-    return dist
-
-
-
-
-# if __name__ == '__main__':
-#    la = 10
-   
-#    print(exponentialdist(la))
+# Example
+if __name__ == '__main__':
+    lam = 10
+    print("Exponential:", exponentialdist(lam))
+    print("Poisson:", poissondist(lam))
