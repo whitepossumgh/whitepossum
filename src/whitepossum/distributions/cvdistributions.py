@@ -21,10 +21,10 @@ def exponentialdist(l):
     """
 
     dist = []
+    y = uniform()
     # start from 1, add one to l because lamda > 0
     for i in range(1, l+1):
       # get one y-value
-      y = uniform()
       x = -( np.log(y) / i)
       dist.append(x)
 
