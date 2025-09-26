@@ -18,6 +18,8 @@ def exponentialdist(l):
     l
       Lamda value to pass to the function.
     """
+    if  l < 0:
+       raise ValueError("Lamda must be greater than 0")
 
 
     # get one y-value
