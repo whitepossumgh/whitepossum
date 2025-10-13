@@ -204,14 +204,14 @@ class LinearRegression:
         axes[0, 1].grid(True)
 
         # Subplot 3: w0 (Intercept) as Training Progressed
-        axes[1, 0].plot(self.w_0.detach().numpy())
+        axes[1, 0].plot(self.w1_history)
         axes[1, 0].set_title('$w_0$ (Intercept) vs. Epochs')
         axes[1, 0].set_xlabel('Epochs')
         axes[1, 0].set_ylabel('$w_0$')
         axes[1, 0].grid(True)
 
         # Subplot 4: w1 (Slope) as Training Progressed
-        axes[1, 1].plot(self.w_1.detach().numpy())
+        axes[1, 1].plot(self.w1_history)
         axes[1, 1].set_title('$w_1$ (Slope) vs. Epochs')
         axes[1, 1].set_xlabel('Epochs')
         axes[1, 1].set_ylabel('$w_1$')
