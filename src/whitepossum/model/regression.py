@@ -188,7 +188,7 @@ class LinearRegression:
 
         # Subplot 1: Original Data and Fitted Regression Line
         axes[0, 0].scatter(self.X_train, self.y_train, alpha=0.6, label='Original Data')
-        y_pred = self.w_0.detach().numpy() + self.w_1.detach().numpy() * self.X_train.detach().numpy()
+        y_pred = self.w_0.detach().numpy() + self.w_1.detach().numpy() * self.X_train
         axes[0, 0].plot(self.X_orig, y_pred, color='red', label='Fitted Regression Line')
         axes[0, 0].set_title('Original Data and Fitted Line')
         axes[0, 0].set_xlabel('X')
