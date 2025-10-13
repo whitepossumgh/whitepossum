@@ -139,15 +139,26 @@ class LinearRegression:
         X_test = kwargs.get("X_test")
         y_test = kwargs.get("y_test")
         
-        if X_test != None and y_test != None:
-            betas = inv(X_test.transpose().dot(X_test)).dot(X_test.transpose()).dot(y_test)
-            y_hat = X_test.dot(betas)
-            errors = y - y_hat 
-            sse = (errors ** 2).sum()
-            tss = ((y_test - y.mean()) ** 2).sum()
-            r2 = 1 - sse / tss
-            print("Coefficient of Determination of test data:")
-            print(r2)
+        if isinstance(X_test, np.ndarray) and isinstance(y_test, np.ndarray):
+            # Add intercept column if not already present
+            if X_test.ndim == 1:
+                X_test = X_test.reshape(-1, 1)
+                X_test_with_bias = np.c_[np.ones(X_test.shape[0]), X_test]
+
+                # Compute closed-form betas: (X^T X)^(-1) X^T y
+                betas = inv(X_test_with_bias.T.dot(X_test_with_bias)).dot(X_test_with_bias.T).dot(y_test)
+
+                # Predictions
+                y_hat = X_test_with_bias.dot(betas)
+
+                # Errors and R²
+                errors = y_test - y_hat
+                sse = np.sum(errors ** 2)
+                tss = np.sum((y_test - y_test.mean()) ** 2)
+                r2 = 1 - sse / tss
+                print()
+                print("Coefficient of Determination (R²) on test data:")
+                print(r2)
                 
         self.fitted = True
         return self

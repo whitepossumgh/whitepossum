@@ -34,6 +34,8 @@ print()
 print("Using LinearRegression.forward:")
 print(hydroPowerModel.forward(torch.Tensor([0.5])))
 
+hydroPowerModel = hydroPowerModel.fit(BCRdata.to_numpy(), APdata.to_numpy(), X_test=BCRdata.to_numpy(), y_test=APdata.to_numpy())
+
 print("Plots")
 
 hydroPowerModel.analysis_plot()
