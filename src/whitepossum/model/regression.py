@@ -104,8 +104,8 @@ class LinearRegression:
         for epoch in range(self.max_epochs):
             # Zero gradients
             self.optimizer.zero_grad()
-            self.w0_history.append(self.w_0)
-            self.w1_history.append(self.w_1)
+            self.w0_history.append(self.w_0.item())
+            self.w1_history.append(self.w_1.item())
             
             # Forward pass
             y_pred = self.forward(self.X_train)
@@ -135,8 +135,10 @@ class LinearRegression:
             y_pred = self.forward(self.X_train)
             residuals = self.y_train - y_pred
             self.residual_sum_squares = float(torch.sum(residuals ** 2))
+        
         X_test = kwargs.get("X_test")
         y_test = kwargs.get("y_test")
+        
         if X_test != None and y_test != None:
             betas = inv(X_test.transpose().dot(X_test)).dot(X_test.transpose()).dot(y_test)
             y_hat = X_test.dot(betas)
@@ -188,7 +190,7 @@ class LinearRegression:
 
         # Subplot 1: Original Data and Fitted Regression Line
         axes[0, 0].scatter(self.X_train, self.y_train, alpha=0.6, label='Original Data')
-        y_pred = self.w_0.detach().numpy() + self.w_1.detach().numpy() * self.X_train
+        y_pred = self.w_0.detach().numpy() + self.w_1.detach().numpy() * self.X_train.detach().numpy()
         axes[0, 0].plot(self.X_orig, y_pred, color='red', label='Fitted Regression Line')
         axes[0, 0].set_title('Original Data and Fitted Line')
         axes[0, 0].set_xlabel('X')
@@ -204,7 +206,7 @@ class LinearRegression:
         axes[0, 1].grid(True)
 
         # Subplot 3: w0 (Intercept) as Training Progressed
-        axes[1, 0].plot(self.w1_history)
+        axes[1, 0].plot(self.w0_history)
         axes[1, 0].set_title('$w_0$ (Intercept) vs. Epochs')
         axes[1, 0].set_xlabel('Epochs')
         axes[1, 0].set_ylabel('$w_0$')
