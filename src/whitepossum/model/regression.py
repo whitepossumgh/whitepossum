@@ -398,7 +398,43 @@ class LinearRegression:
             }
         }
 
+class CauchyRegression(nn.Module):
+    def __init__(self, input_dim, c=1.0, lr=0.01):
+        super(CauchyRegression, self).__init__()
+        self.linear = nn.Linear(input_dim, 1, bias=True)
+        self.c = c
+        self.optimizer = optim.Adam(self.parameters(), lr=lr)
 
+    def forward(self, X):
+        return self.linear(X)
+
+    def cauchy_loss(self, y_pred, y_true):
+        residual = y_true - y_pred
+        c2 = self.c ** 2
+        loss = 0.5 * c2 * torch.log1p((residual / self.c) ** 2)
+        return torch.mean(loss)
+
+    def fit(self, X, y, epochs=1000, verbose=False):
+        loss = torch.Tensor()
+        for epoch in range(epochs):
+            self.optimizer.zero_grad()
+            y_pred = self.forward(X)
+            loss = self.cauchy_loss(y_pred, y)
+            loss.backward()
+            self.optimizer.step()
+            if verbose and epoch % 100 == 0:
+                print(f"Epoch {epoch}, Loss = {loss.item():.4f}")
+        return loss.item()
+
+    def predict(self, X):
+        with torch.no_grad():
+            return self.forward(X).cpu().numpy()
+
+    def coefficients(self):
+        """Return learned coefficients and bias."""
+        weights = self.linear.weight.detach().numpy().flatten()
+        bias = self.linear.bias.item()
+        return bias, weights
 
 # np.random.seed(42)
 # torch.manual_seed(42)

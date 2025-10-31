@@ -3,4 +3,5 @@ Subpackage containing model implememtation.
 """
 
 from .regression import *
-__all__ = ['LinearRegression']
+from .logit import *
+__all__ = ['LinearRegression', 'CauchyRegression', 'LogisticRegression']
