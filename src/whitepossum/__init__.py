@@ -1,5 +1,5 @@
 from whitepossum._core import hello_from_bin
-from whitepossum.model import LinearRegression, LogisticRegression, CauchyRegression
+from whitepossum.model import LinearRegression, LogisticRegression, CauchyRegression, TorchNet
 
 def hello() -> str:
     return hello_from_bin()
